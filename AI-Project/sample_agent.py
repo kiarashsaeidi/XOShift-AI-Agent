@@ -1,7 +1,7 @@
 import random
 from typing import List, Optional, Tuple
 
-from agent_utils import get_all_valid_moves
+from agent_utils import get_all_valid_moves, get_possible_selections
 
 
 def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[int, int, int, int]:
@@ -10,7 +10,7 @@ def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[in
     It relies on agent_utils to get the list of valid moves.
     """
     valid_moves = get_all_valid_moves(board, player_symbol)
-    print(board)
+    
 
     # choose a move
     if valid_moves:

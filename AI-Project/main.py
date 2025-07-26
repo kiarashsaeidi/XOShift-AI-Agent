@@ -5,7 +5,6 @@ import os
 import queue
 import sys
 from typing import Optional, Callable, List, Dict, Any
-
 import pygame
 
 from agent_loader import load_agent

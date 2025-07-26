@@ -1,7 +1,7 @@
 import math
 import copy
 from typing import List, Optional, Tuple
-
+from heuristic import evaluate_board
 # It is assumed that this utility is provided by the project environment.
 from agent_utils import get_all_valid_moves
 
@@ -70,22 +70,23 @@ def is_board_full(board: List[List[Optional[str]]]) -> bool:
 
 # --- Minimax Algorithm Implementation ---
 
-def minimax(board: List[List[Optional[str]]], depth: int, is_maximizing: bool, player_symbol: str, opponent_symbol: str) -> int:
+def minimax(board: List[List[Optional[str]]], depth: int,alpha: float, beta: float, is_maximizing: bool, player_symbol: str, opponent_symbol: str) -> int:
     """
     The core Minimax function. It recursively explores the game tree to find the
     best possible score from the current board state.
     """
+    WIN_SCORE = 100000
     # Check for terminal states (win, loss, draw)
     if check_win(board, player_symbol):
-        return 1  # AI wins
+        return WIN_SCORE  # AI wins
     if check_win(board, opponent_symbol):
-        return -1 # Opponent wins
+        return -WIN_SCORE # Opponent wins
     if is_board_full(board):
         return 0  # Draw
     
     # If we reach the maximum search depth, we stop and return a neutral score
     if depth == 0:
-        return 0
+        return evaluate_board(board,player_symbol,opponent_symbol)
 
     if is_maximizing:
         best_score = -math.inf
@@ -94,8 +95,11 @@ def minimax(board: List[List[Optional[str]]], depth: int, is_maximizing: bool, p
         for move in valid_moves:
             # Create a new board state by applying the move
             new_board = apply_move(board, move, player_symbol)
-            score = minimax(new_board, depth - 1, False, player_symbol, opponent_symbol)
+            score = minimax(new_board, depth - 1,alpha, beta, False, player_symbol, opponent_symbol)
             best_score = max(score, best_score)
+            alpha = max(alpha, score)
+
+            if beta <= alpha:   break
         return best_score
     else:  # Minimizing player
         best_score = math.inf
@@ -104,8 +108,12 @@ def minimax(board: List[List[Optional[str]]], depth: int, is_maximizing: bool, p
         for move in valid_moves:
             # Create a new board state by applying the move
             new_board = apply_move(board, move, opponent_symbol)
-            score = minimax(new_board, depth - 1, True, player_symbol, opponent_symbol)
+            score = minimax(new_board, depth - 1,alpha, beta, True, player_symbol, opponent_symbol)
             best_score = min(score, best_score)
+
+            beta = min(beta, score)
+
+            if beta <= alpha: break
         return best_score
 
 
@@ -130,7 +138,7 @@ def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[in
     
     # Set a depth for the search. Higher depth = stronger but slower AI.
     # A depth of 2 or 3 is a good starting point for a 3x3 board.
-    search_depth = 2 
+    search_depth = 2
 
     # Loop through all possible moves
     for move in valid_moves:
@@ -138,7 +146,7 @@ def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[in
         new_board = apply_move(board, move, player_symbol)
         
         # We call minimax for the opponent's turn (minimizing player)
-        score = minimax(new_board, search_depth, False, player_symbol, opponent_symbol)
+        score = minimax(new_board, search_depth,-math.inf,math.inf,False, player_symbol, opponent_symbol)
         
         # If this move has a better score than any we've seen, update our best move
         if score > best_score:
