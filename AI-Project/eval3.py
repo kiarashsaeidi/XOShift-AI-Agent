@@ -10,7 +10,7 @@ try:
     from agent_loader import load_agent
     from game import XOShiftGame
     # <<< MODIFIED: Import the heuristic function for debugging >>>
-    from heuristic import evaluate_board 
+    from test_hu import evaluate_board 
     # <<< NEW: Import utilities to simulate agent's thinking process >>>
     from your_agent import get_all_valid_moves, apply_move
 except ImportError as e:
@@ -77,6 +77,7 @@ def play_one_game(agent_x_func: Callable, agent_o_func: Callable, board_size: in
                 temp_board = apply_move(game.board, p_move, current_player)
                 # Calculate the heuristic score for the resulting board
                 opponent_symbol = 'O' if current_player == 'X' else 'X'
+                
                 score = heuristic_func(temp_board, current_player, opponent_symbol)
                 
                 print(f"\nIF move is {p_move}:")
@@ -136,8 +137,8 @@ def play_one_game(agent_x_func: Callable, agent_o_func: Callable, board_size: in
 def main():
     """Main function to run the agent vs. agent evaluation."""
     # --- Configuration ---
-    AGENT1_PATH = "sample_agent.py" # The "opponent"
-    AGENT2_PATH = "your_agent.py"   # The agent you want to test
+    AGENT1_PATH = "your_agent.py" # The "opponent"
+    AGENT2_PATH = "agent2.py"   # The agent you want to test
     
     # <<< SET DEBUG MODE HERE >>>
     # True: Plays one game with detailed printouts for AGENT2.

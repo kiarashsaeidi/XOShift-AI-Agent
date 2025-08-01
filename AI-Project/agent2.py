@@ -2,6 +2,7 @@ import math
 import copy
 from typing import List, Optional, Tuple
 from heuristic import evaluate_board
+# from test_hu import evaluate_board
 from agent_utils import get_all_valid_moves
 
 
