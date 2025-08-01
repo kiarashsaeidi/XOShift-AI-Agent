@@ -90,8 +90,8 @@ def main_loop():
             elif action["action"] == "start_game":
                 board_size = action["size"]
                 game_mode = action["mode"]
-                # should_record_current_game = action.get("record_replay", False) and game_mode != "replay-select-file"
-                should_record_current_game = False
+                should_record_current_game = action.get("record_replay", False) and game_mode != "replay-select-file"
+                # should_record_current_game = False
                 try:
                     game = XOShiftGame(size=board_size)
                     turn_count = 0
