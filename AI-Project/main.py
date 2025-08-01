@@ -47,7 +47,7 @@ def main_loop():
     agent1: Optional[Callable] = None
     agent2: Optional[Callable] = None
     agent1_path_config = "your_agent.py"
-    agent2_path_config = "sample_agent.py"
+    agent2_path_config = "agent2.py"
 
     current_move_history: List[Dict[str, Any]] = []
     should_record_current_game = False
@@ -90,8 +90,8 @@ def main_loop():
             elif action["action"] == "start_game":
                 board_size = action["size"]
                 game_mode = action["mode"]
-                should_record_current_game = action.get("record_replay", False) and game_mode != "replay-select-file"
-
+                # should_record_current_game = action.get("record_replay", False) and game_mode != "replay-select-file"
+                should_record_current_game = False
                 try:
                     game = XOShiftGame(size=board_size)
                     turn_count = 0

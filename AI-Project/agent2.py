@@ -1,7 +1,7 @@
 import math
 import copy
 from typing import List, Optional, Tuple
-# It is assumed that this utility is provided by the project environment.
+from heuristic import evaluate_board
 from agent_utils import get_all_valid_moves
 
 
@@ -74,7 +74,7 @@ def minimax(board: List[List[Optional[str]]], depth: int,alpha: float, beta: flo
     The core Minimax function. It recursively explores the game tree to find the
     best possible score from the current board state.
     """
-    WIN_SCORE = 100
+    WIN_SCORE = 100000
     # Check for terminal states (win, loss, draw)
     if check_win(board, player_symbol):
         return WIN_SCORE  # AI wins
@@ -85,7 +85,7 @@ def minimax(board: List[List[Optional[str]]], depth: int,alpha: float, beta: flo
     
     # If we reach the maximum search depth, we stop and return a neutral score
     if depth == 0:
-        return 0
+        return evaluate_board(board,player_symbol,opponent_symbol)
 
     if is_maximizing:
         best_score = -math.inf

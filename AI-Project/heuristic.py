@@ -22,7 +22,6 @@ def score_player_position(board: List[List[Optional[str]]], player_symbol: str, 
     """
     Calculates a score for a single player based on various strategic factors.
     """
-    
     # --- TUNABLE WEIGHTS ---
     # Adjust these values to change the agent's behavior and priorities.
     WEIGHTS = {
@@ -30,7 +29,8 @@ def score_player_position(board: List[List[Optional[str]]], player_symbol: str, 
         "FORK": 5000,
         "THREE_IN_LINE": 200, # For 4x4 or 5x5 boards
         "TWO_IN_LINE": 50,
-        "CORNER_CONTROL": 25,
+        "CENTER_CONTROL": 15, # <<< NEW: Heuristic for controlling the center
+        "CORNER_CONTROL": 10, # Adjusted weight to be less than center
         "MOBILITY": 1
     }
 
@@ -40,7 +40,6 @@ def score_player_position(board: List[List[Optional[str]]], player_symbol: str, 
     # --- 1. Terminal State Check (Highest Priority) ---
     if check_win(board, player_symbol):
         return WEIGHTS["WIN"]
-    # We don't need a loss check here, as it will be caught when evaluating the opponent.
 
     # --- 2. Offensive and Positional Scoring ---
     all_lines = get_all_lines(board)
@@ -55,9 +54,10 @@ def score_player_position(board: List[List[Optional[str]]], player_symbol: str, 
     # Score corner control
     total_score += _score_corners(board, player_symbol, n, WEIGHTS)
     
+    # <<< NEW: Score center control >>>
+    total_score += _score_center_control(board, player_symbol, n, WEIGHTS)
+    
     # Score mobility (number of available moves)
-    # This is a good tie-breaker for otherwise equal positions.
-    # NOTE: This can be slow. If your agent is too slow, you can disable this.
     # total_score += len(get_all_valid_moves(board, player_symbol)) * WEIGHTS["MOBILITY"]
 
     return total_score
@@ -74,20 +74,17 @@ def _score_threats(all_lines: List[List[Optional[str]]], player_symbol: str, n: 
 
         if player_pieces + empty_cells == n:  # Line is not blocked by the opponent
             if player_pieces == n - 1:
-                score += WEIGHTS["THREE_IN_LINE"] # This is for a 4x4 or 5x5 almost-win
+                score += WEIGHTS["THREE_IN_LINE"] 
                 potential_fork_lines += 1
             elif player_pieces == n - 2:
-                score += WEIGHTS["TWO_IN_LINE"] # This is for a 3x3 almost-win
+                score += WEIGHTS["TWO_IN_LINE"]
                 potential_fork_lines += 1
     
     return score, potential_fork_lines
 
 
 def _score_forks(potential_fork_lines: int, WEIGHTS: Dict) -> int:
-    """
-    Scores a fork opportunity. A fork is a move that creates two threats at once.
-    We approximate this by checking if there are 2 or more potential winning lines.
-    """
+    """Scores a fork opportunity (2 or more simultaneous threats)."""
     if potential_fork_lines >= 2:
         return WEIGHTS["FORK"]
     return 0
@@ -103,22 +100,37 @@ def _score_corners(board: List[List[Optional[str]]], player_symbol: str, n: int,
     return score
 
 
+def _score_center_control(board: List[List[Optional[str]]], player_symbol: str, n: int, WEIGHTS: Dict) -> int:
+    """Scores having control of the center cell(s)."""
+    score = 0
+    # For odd-sized boards (3x3, 5x5), there is one center cell.
+    if n % 2 == 1:
+        center_idx = n // 2
+        if board[center_idx][center_idx] == player_symbol:
+            score += WEIGHTS["CENTER_CONTROL"]
+    # For even-sized boards (4x4), there is a 2x2 block of center cells.
+    else:
+        center1 = n // 2 - 1
+        center2 = n // 2
+        center_cells = [(center1, center1), (center1, center2), (center2, center1), (center2, center2)]
+        for r, c in center_cells:
+            if board[r][c] == player_symbol:
+                score += WEIGHTS["CENTER_CONTROL"]
+    return score
+
+
 # --- Utility Functions ---
-# These helpers are needed for the heuristic to work. You should have similar
-# functions in your project already.
+# These helpers are needed for the heuristic to work.
 
 def get_all_lines(board: List[List[Optional[str]]]) -> List[List[Optional[str]]]:
     """Returns a list of all rows, columns, and diagonals from the board."""
     n = len(board)
     lines = []
-    # Rows
-    lines.extend(board)
-    # Columns
-    for c in range(n):
+    lines.extend(board) # Rows
+    for c in range(n): # Columns
         lines.append([board[r][c] for r in range(n)])
-    # Diagonals
-    lines.append([board[i][i] for i in range(n)])
-    lines.append([board[i][n - 1 - i] for i in range(n)])
+    lines.append([board[i][i] for i in range(n)]) # Main Diagonal
+    lines.append([board[i][n - 1 - i] for i in range(n)]) # Anti-Diagonal
     return lines
 
 def check_win(board: List[List[Optional[str]]], player_symbol: str) -> bool:
