@@ -17,7 +17,7 @@ def evaluate_board(board: List[List[Optional[str]]], my_symbol: str, opponent_sy
     print(f"{'-' * 40} opponent score {'-' * 40}")
     opponent_score = score_player_position(board, opponent_symbol, my_symbol)
     
-    return my_score - opponent_score
+    return my_score - opponent_score * 2
 
 
 def score_player_position(board: List[List[Optional[str]]], player_symbol: str, opponent_symbol: str) -> int:

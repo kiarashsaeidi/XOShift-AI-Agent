@@ -47,7 +47,7 @@ def main_loop():
     agent1: Optional[Callable] = None
     agent2: Optional[Callable] = None
     agent1_path_config = "your_agent.py"
-    agent2_path_config = "your_agent.py"
+    agent2_path_config = "agent2.py" # This can be another agent for agent-agent mode
 
     current_move_history: List[Dict[str, Any]] = []
     should_record_current_game = False
@@ -91,7 +91,7 @@ def main_loop():
                 board_size = action["size"]
                 game_mode = action["mode"]
                 should_record_current_game = action.get("record_replay", False) and game_mode != "replay-select-file"
-                # should_record_current_game = False
+                
                 try:
                     game = XOShiftGame(size=board_size)
                     turn_count = 0
@@ -104,10 +104,12 @@ def main_loop():
                 agent1_name = os.path.basename(agent1_path_config).replace(".py", "")
                 agent2_name = os.path.basename(agent2_path_config).replace(".py", "")
 
+                # <<< CHANGE 1: Swap player roles for human-agent mode >>>
                 if game_mode == "human-human":
                     ui.player_types = {'X': 'human', 'O': 'human'}
                 elif game_mode == "human-agent":
-                    ui.player_types = {'X':'human' , 'O': agent2_name}
+                    # Agent is 'X' (plays first), Human is 'O'
+                    ui.player_types = {'X': agent1_name, 'O': 'human'}
                 elif game_mode == "agent-agent":
                     ui.player_types = {'X': agent1_name, 'O': agent2_name}
 
@@ -116,24 +118,35 @@ def main_loop():
                 ui.replay_finished = False
 
                 agent1, agent2 = None, None
+                # <<< CHANGE 2: Load the correct agent for human-agent mode >>>
                 if game_mode == "human-agent":
                     try:
-                        agent2 = load_agent(agent2_path_config)
+                        # Load agent1 to play as 'X'
+                        agent1 = load_agent(agent1_path_config)
                     except Exception as e:
-                        print(f"Error loading agent 2: {e}. Mode to human-human.")
+                        print(f"Error loading agent 1: {e}. Mode set to human-human.")
+                        ui.player_types = {'X': 'human', 'O': 'human'} # Fallback
                 elif game_mode == "agent-agent":
                     try:
                         agent1 = load_agent(agent1_path_config)
                         agent2 = load_agent(agent2_path_config)
                     except Exception as e:
-                        print(f"Error loading agents: {e}. Mode to human-human.")
+                        print(f"Error loading agents: {e}. Mode set to human-human.")
 
+                # <<< CHANGE 3: Set the correct initial game state >>>
                 if game:
+                    # Default to human select state
                     ui.state = XOShiftUI.STATE_SELECT
-                    if game_mode == "agent-agent" and agent1:
+
+                    # Check if the very first turn belongs to an agent
+                    is_first_player_agent = (game_mode == "agent-agent" and agent1) or \
+                                            (game_mode == "human-agent" and game.current_player_index == 0 and agent1)
+
+                    if is_first_player_agent:
                         ui.state = XOShiftUI.STATE_WAITING
 
             elif action["action"] == "load_replay":
+                # ... (replay logic remains the same) ...
                 current_replay_filename = action["filename"]
                 replay_filepath = os.path.join(REPLAYS_DIR, current_replay_filename)
                 try:
@@ -168,6 +181,7 @@ def main_loop():
                     print(f"Error loading replay file '{replay_filepath}': {e}. Returning to menu.")
                     ui.set_game(None)
 
+
             elif action["action"] == "apply_move" and game and ui.state != XOShiftUI.STATE_WAITING:
                 sr, sc, tr, tc = action["move"]
                 player_making_move = game.current_player
@@ -180,14 +194,15 @@ def main_loop():
                         })
                     if not game.winner:
                         game.switch_player()
-                        is_next_player_human = not ((ui.selected_mode == "agent-agent") or (
-                                ui.selected_mode == "human-agent" and game.current_player_index == 1 and agent2))
+                        # <<< CHANGE 4: Update logic for next player check >>>
+                        is_next_player_human = ui.player_types.get(game.current_player) == 'human'
                         ui.state = XOShiftUI.STATE_SELECT if is_next_player_human else XOShiftUI.STATE_WAITING
                     else:
                         ui.state = XOShiftUI.STATE_GAME_OVER
                     ui.selected_cell = None
 
             elif action["action"] == "return_to_menu_ingame":
+                # ... (logic remains the same) ...
                 game = None
                 ui.set_game(None)
                 current_move_history = []
@@ -195,6 +210,7 @@ def main_loop():
                 current_replay_filename = None
 
             elif action["action"] == "return_to_menu":
+                # ... (logic remains the same) ...
                 if game and ui.state == XOShiftUI.STATE_GAME_OVER and should_record_current_game and current_move_history:
                     mode_str = ui.selected_mode.replace("human", "H").replace("agent", "A").replace("-vs-", "-")
                     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -224,6 +240,7 @@ def main_loop():
                 current_replay_filename = None
 
             elif action["action"] == "replay_again" and game and loaded_replay_moves:
+                # ... (logic remains the same) ...
                 ui.state = XOShiftUI.STATE_REPLAY
                 current_replay_index = 0
                 ui.replay_finished = False
@@ -233,10 +250,11 @@ def main_loop():
             active_agent: Optional[Callable] = None
             player_whose_turn_is_it = game.current_player
 
-            if ui.selected_mode == "human-agent" and game.current_player_index == 1 and agent2:
+            # <<< CHANGE 5: Update agent selection logic >>>
+            if game.current_player_index == 0 and agent1:
+                active_agent = agent1
+            elif game.current_player_index == 1 and agent2:
                 active_agent = agent2
-            elif ui.selected_mode == "agent-agent":
-                active_agent = agent1 if game.current_player_index == 0 else agent2
 
             if active_agent:
                 ui.draw()
@@ -296,11 +314,12 @@ def main_loop():
                 if game.winner:
                     ui.state = XOShiftUI.STATE_GAME_OVER
                 else:
-                    is_next_human = not ((ui.selected_mode == "agent-agent") or (
-                            ui.selected_mode == "human-agent" and game.current_player_index == 1 and agent2))
+                    # <<< CHANGE 6: Update logic for next player check >>>
+                    is_next_human = ui.player_types.get(game.current_player) == 'human'
                     ui.state = XOShiftUI.STATE_SELECT if is_next_human else XOShiftUI.STATE_WAITING
 
         if ui.state == XOShiftUI.STATE_REPLAY and game and not ui.replay_finished:
+            # ... (replay logic remains the same) ...
             for event in events:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RIGHT:
@@ -320,6 +339,7 @@ def main_loop():
         clock.tick(30)
 
     if game and game.winner and should_record_current_game and current_move_history:
+        # ... (save on quit logic remains the same) ...
         mode_str = ui.selected_mode.replace("human", "H").replace("agent", "A").replace("-vs-", "-")
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"xo_{game.size}x{game.size}_{mode_str}_{timestamp}.json"
@@ -346,14 +366,13 @@ def main_loop():
 
 def _apply_replay_moves_to_index(game_instance: XOShiftGame, moves: List[Dict[str, Any]],
                                  target_move_count: int):
-    # Reset the game board to a clean state
+    # ... (function remains the same) ...
     board_size = game_instance.size
     game_instance.board = [[game_instance.EMPTY for _ in range(board_size)] for _ in range(board_size)]
     game_instance.winner = None
     game_instance.winning_line_coords = None
     game_instance.current_player_index = 0
 
-    # Apply moves one by one up to the target index
     for i in range(target_move_count):
         if i >= len(moves):
             break
@@ -366,7 +385,6 @@ def _apply_replay_moves_to_index(game_instance: XOShiftGame, moves: List[Dict[st
             continue
 
         try:
-            # Ensure the correct player is set for the move
             game_instance.current_player_index = game_instance.PLAYERS.index(p)
         except ValueError:
             print(f"Replay Warning: Player symbol '{p}' in move {i + 1} is invalid. Skipping move.")
