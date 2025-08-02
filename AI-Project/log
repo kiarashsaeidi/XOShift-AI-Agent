@@ -1,0 +1,756 @@
+--- XOShift Agent Evaluation Script ---
+!!! DEBUG MODE ON: Analyzing moves for agent2.py !!!
+
+--- NEW DEBUG GAME ---
+-------------
+| . | . | . |
+| . | . | . |
+| . | . | . |
+-------------
+
+>>> Turn 1: sample_agent (as X) chose move (0, 0, 0, 2)
+-------------
+| . | . | X |
+| . | . | . |
+| . | . | . |
+-------------
+----------------------------------------
+
+--- Analyzing all possible moves for your_agent (as O) ---
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+
+IF move is (0, 0, 0, 2):
+-------------
+| . | X | O |
+| . | . | . |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 10
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (0, 0, 2, 0):
+-------------
+| . | . | X |
+| . | . | . |
+| O | . | . |
+-------------
+  Resulting Heuristic Score would be: 0
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+
+IF move is (0, 1, 0, 2):
+-------------
+| . | X | O |
+| . | . | . |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 10
+---------------------------------------- my_score ----------------------------------------
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (0, 1, 2, 1):
+-------------
+| . | . | X |
+| . | . | . |
+| . | O | . |
+-------------
+  Resulting Heuristic Score would be: -10
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (0, 1, 0, 0):
+-------------
+| O | . | X |
+| . | . | . |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 0
+---------------------------------------- my_score ----------------------------------------
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (1, 0, 1, 2):
+-------------
+| . | . | X |
+| . | . | O |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: -10
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (1, 0, 2, 0):
+-------------
+| . | . | X |
+| . | . | . |
+| O | . | . |
+-------------
+  Resulting Heuristic Score would be: 0
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (1, 0, 0, 0):
+-------------
+| O | . | X |
+| . | . | . |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 0
+---------------------------------------- my_score ----------------------------------------
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (1, 2, 1, 0):
+-------------
+| . | . | X |
+| O | . | . |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: -10
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+
+IF move is (1, 2, 0, 2):
+-------------
+| . | . | O |
+| . | . | X |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 10
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (1, 2, 2, 2):
+-------------
+| . | . | X |
+| . | . | . |
+| . | . | O |
+-------------
+  Resulting Heuristic Score would be: 0
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (2, 0, 0, 0):
+-------------
+| O | . | X |
+| . | . | . |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 0
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (2, 0, 2, 2):
+-------------
+| . | . | X |
+| . | . | . |
+| . | . | O |
+-------------
+  Resulting Heuristic Score would be: 0
+---------------------------------------- my_score ----------------------------------------
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (2, 1, 0, 1):
+-------------
+| . | O | X |
+| . | . | . |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: -10
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (2, 1, 2, 0):
+-------------
+| . | . | X |
+| . | . | . |
+| O | . | . |
+-------------
+  Resulting Heuristic Score would be: 0
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (2, 1, 2, 2):
+-------------
+| . | . | X |
+| . | . | . |
+| . | . | O |
+-------------
+  Resulting Heuristic Score would be: 0
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+
+IF move is (2, 2, 0, 2):
+-------------
+| . | . | O |
+| . | . | X |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 10
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (2, 2, 2, 0):
+-------------
+| . | . | X |
+| . | . | . |
+| O | . | . |
+-------------
+  Resulting Heuristic Score would be: 0
+
+--- End of Analysis ---
+
+>>> Turn 2: your_agent (as O) chose move (0, 0, 0, 2)
+-------------
+| . | X | O |
+| . | . | . |
+| . | . | . |
+-------------
+----------------------------------------
+
+>>> Turn 3: sample_agent (as X) chose move (0, 0, 0, 2)
+-------------
+| X | O | X |
+| . | . | . |
+| . | . | . |
+-------------
+----------------------------------------
+
+--- Analyzing all possible moves for your_agent (as O) ---
+---------------------------------------- my_score ----------------------------------------
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+
+IF move is (1, 0, 1, 2):
+-------------
+| X | O | X |
+| . | . | O |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: -220
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+
+IF move is (1, 0, 2, 0):
+-------------
+| X | O | X |
+| . | . | . |
+| O | . | . |
+-------------
+  Resulting Heuristic Score would be: -210
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (1, 0, 0, 0):
+-------------
+| O | O | X |
+| X | . | . |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 200
+---------------------------------------- my_score ----------------------------------------
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+
+IF move is (1, 2, 1, 0):
+-------------
+| X | O | X |
+| O | . | . |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: -220
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (1, 2, 0, 2):
+-------------
+| X | O | O |
+| . | . | X |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 200
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+
+IF move is (1, 2, 2, 2):
+-------------
+| X | O | X |
+| . | . | . |
+| . | . | O |
+-------------
+  Resulting Heuristic Score would be: -210
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (2, 0, 0, 0):
+-------------
+| O | O | X |
+| X | . | . |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 200
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+
+IF move is (2, 0, 2, 2):
+-------------
+| X | O | X |
+| . | . | . |
+| . | . | O |
+-------------
+  Resulting Heuristic Score would be: -210
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+CENTER_CONTROL : 15
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+
+IF move is (2, 1, 0, 1):
+-------------
+| X | O | X |
+| . | O | . |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: -5
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+
+IF move is (2, 1, 2, 0):
+-------------
+| X | O | X |
+| . | . | . |
+| O | . | . |
+-------------
+  Resulting Heuristic Score would be: -210
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+
+IF move is (2, 1, 2, 2):
+-------------
+| X | O | X |
+| . | . | . |
+| . | . | O |
+-------------
+  Resulting Heuristic Score would be: -210
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (2, 2, 0, 2):
+-------------
+| X | O | O |
+| . | . | X |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 200
+---------------------------------------- my_score ----------------------------------------
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+
+IF move is (2, 2, 2, 0):
+-------------
+| X | O | X |
+| . | . | . |
+| O | . | . |
+-------------
+  Resulting Heuristic Score would be: -210
+
+--- End of Analysis ---
+
+>>> Turn 4: your_agent (as O) chose move (1, 0, 0, 0)
+-------------
+| O | O | X |
+| X | . | . |
+| . | . | . |
+-------------
+----------------------------------------
+
+>>> Turn 5: sample_agent (as X) chose move (1, 2, 1, 0)
+-------------
+| O | O | X |
+| X | X | . |
+| . | . | . |
+-------------
+----------------------------------------
+
+--- Analyzing all possible moves for your_agent (as O) ---
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CENTER_CONTROL : 15
+
+IF move is (1, 2, 1, 0):
+-------------
+| O | O | X |
+| O | X | X |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: -215
+---------------------------------------- my_score ----------------------------------------
+WIN 100000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+WIN 100000
+CENTER_CONTROL : 15
+
+IF move is (1, 2, 0, 2):
+-------------
+| O | O | O |
+| X | X | X |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 5
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CENTER_CONTROL : 15
+
+IF move is (1, 2, 2, 2):
+-------------
+| O | O | X |
+| X | X | . |
+| . | . | O |
+-------------
+  Resulting Heuristic Score would be: -5
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+WIN 100000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+CENTER_CONTROL : 15
+
+IF move is (2, 0, 0, 0):
+-------------
+| O | O | X |
+| O | X | . |
+| X | . | . |
+-------------
+  Resulting Heuristic Score would be: -94625
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CENTER_CONTROL : 15
+
+IF move is (2, 0, 2, 2):
+-------------
+| O | O | X |
+| X | X | . |
+| . | . | O |
+-------------
+  Resulting Heuristic Score would be: -5
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CENTER_CONTROL : 15
+---------------------------------------- opponent score ----------------------------------------
+CORNER_CONTROL : 10
+
+IF move is (2, 1, 0, 1):
+-------------
+| O | O | X |
+| X | O | . |
+| . | X | . |
+-------------
+  Resulting Heuristic Score would be: 5615
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CENTER_CONTROL : 15
+
+IF move is (2, 1, 2, 0):
+-------------
+| O | O | X |
+| X | X | . |
+| O | . | . |
+-------------
+  Resulting Heuristic Score would be: -5
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CENTER_CONTROL : 15
+
+IF move is (2, 1, 2, 2):
+-------------
+| O | O | X |
+| X | X | . |
+| . | . | O |
+-------------
+  Resulting Heuristic Score would be: -5
+---------------------------------------- my_score ----------------------------------------
+WIN 100000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+WIN 100000
+CENTER_CONTROL : 15
+
+IF move is (2, 2, 0, 2):
+-------------
+| O | O | O |
+| X | X | X |
+| . | . | . |
+-------------
+  Resulting Heuristic Score would be: 5
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CENTER_CONTROL : 15
+
+IF move is (2, 2, 2, 0):
+-------------
+| O | O | X |
+| X | X | . |
+| O | . | . |
+-------------
+  Resulting Heuristic Score would be: -5
+
+--- End of Analysis ---
+
+>>> Turn 6: your_agent (as O) chose move (2, 1, 0, 1)
+-------------
+| O | O | X |
+| X | O | . |
+| . | X | . |
+-------------
+----------------------------------------
+
+>>> Turn 7: sample_agent (as X) chose move (1, 2, 1, 0)
+-------------
+| O | O | X |
+| X | X | O |
+| . | X | . |
+-------------
+----------------------------------------
+
+--- Analyzing all possible moves for your_agent (as O) ---
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+WIN 100000
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+CENTER_CONTROL : 15
+
+IF move is (2, 0, 0, 0):
+-------------
+| O | O | X |
+| O | X | O |
+| X | X | . |
+-------------
+  Resulting Heuristic Score would be: -99825
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+WIN 100000
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+CENTER_CONTROL : 15
+
+IF move is (2, 0, 2, 2):
+-------------
+| O | O | X |
+| X | X | O |
+| X | . | O |
+-------------
+  Resulting Heuristic Score would be: -99815
+---------------------------------------- my_score ----------------------------------------
+WIN 100000
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+WIN 100000
+TWO_IN_LINE : 200
+CENTER_CONTROL : 15
+
+IF move is (2, 2, 0, 2):
+-------------
+| O | O | O |
+| X | X | X |
+| . | X | O |
+-------------
+  Resulting Heuristic Score would be: 5215
+---------------------------------------- my_score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+---------------------------------------- opponent score ----------------------------------------
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+TWO_IN_LINE : 200
+FORK : 5000
+CORNER_CONTROL : 10
+CORNER_CONTROL : 10
+CENTER_CONTROL : 15
+
+IF move is (2, 2, 2, 0):
+-------------
+| O | O | X |
+| X | X | O |
+| O | . | X |
+-------------
+  Resulting Heuristic Score would be: -415
+
+--- End of Analysis ---
+
+>>> Turn 8: your_agent (as O) chose move (2, 0, 0, 0)
+-------------
+| O | O | X |
+| O | X | O |
+| X | X | . |
+-------------
+----------------------------------------
+
+
+--- Evaluation Complete ---
+Total time: 0.29 seconds
+
+Results:
+  - your_agent.py: 1 wins (100.0%)
+  - agent2.py: 0 wins (0.0%)
+  - Draw: 0 wins (0.0%)

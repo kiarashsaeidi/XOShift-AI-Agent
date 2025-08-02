@@ -41,7 +41,9 @@ def score_player_position(board: List[List[Optional[str]]], player_symbol: str, 
 
     # --- 1. Terminal State Check (Highest Priority) ---
     if check_win(board, player_symbol):
-        return WEIGHTS["WIN"]
+        print("WIN 100000")
+        # return WEIGHTS["WIN"]
+        total_score += WEIGHTS["WIN"]
 
     # --- 2. Offensive and Positional Scoring ---
     all_lines = get_all_lines(board)
@@ -74,7 +76,13 @@ def _score_threats(all_lines: List[List[Optional[str]]], player_symbol: str, n: 
         player_pieces = line.count(player_symbol)
         empty_cells = line.count(None)
 
-        if player_pieces + empty_cells == n:  # Line is not blocked by the opponent
+        # if player_pieces + empty_cells == n:  # Line is not blocked by the opponent
+        if n == 3 : 
+            if player_pieces == n - 1:
+                score += WEIGHTS["THREE_IN_LINE"] 
+                print("TWO_IN_LINE : 200")
+                potential_fork_lines += 1
+        elif n > 3: 
             if player_pieces == n - 1:
                 score += WEIGHTS["THREE_IN_LINE"] 
                 print("THREE_IN_LINE : 200")

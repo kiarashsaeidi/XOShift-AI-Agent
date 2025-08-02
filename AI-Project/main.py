@@ -47,7 +47,7 @@ def main_loop():
     agent1: Optional[Callable] = None
     agent2: Optional[Callable] = None
     agent1_path_config = "your_agent.py"
-    agent2_path_config = "agent2.py"
+    agent2_path_config = "your_agent.py"
 
     current_move_history: List[Dict[str, Any]] = []
     should_record_current_game = False
@@ -107,7 +107,7 @@ def main_loop():
                 if game_mode == "human-human":
                     ui.player_types = {'X': 'human', 'O': 'human'}
                 elif game_mode == "human-agent":
-                    ui.player_types = {'X': 'human', 'O': agent2_name}
+                    ui.player_types = {'X':'human' , 'O': agent2_name}
                 elif game_mode == "agent-agent":
                     ui.player_types = {'X': agent1_name, 'O': agent2_name}
 
