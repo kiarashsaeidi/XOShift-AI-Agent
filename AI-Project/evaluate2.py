@@ -132,13 +132,13 @@ def main():
         
         # Alternate who starts as 'X'
         # if i % 2 == 0:
-        #     winner = play_one_game(agent1_func, agent2_func, BOARD_SIZE)
-        #     if winner == 'X':
-        #         stats[AGENT1_PATH] += 1
-        #     elif winner == 'O':
-        #         stats[AGENT2_PATH] += 1
-        #     else:
-        #         stats["Draw"] += 1
+        # winner = play_one_game(agent1_func, agent2_func, BOARD_SIZE)
+        # if winner == 'X':
+        #     stats[AGENT1_PATH] += 1
+        # elif winner == 'O':
+        #     stats[AGENT2_PATH] += 1
+        # else:
+        #     stats["Draw"] += 1
         # else:
         winner = play_one_game(agent2_func, agent1_func, BOARD_SIZE)
         if winner == 'X':
