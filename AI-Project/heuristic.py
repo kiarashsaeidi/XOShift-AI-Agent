@@ -72,16 +72,23 @@ def _score_threats(all_lines: List[List[Optional[str]]], player_symbol: str, n: 
         player_pieces = line.count(player_symbol)
         empty_cells = line.count(None)
 
-        if player_pieces + empty_cells == n:  # Line is not blocked by the opponent
+        # if player_pieces + empty_cells == n:  # Line is not blocked by the opponent
+        if n == 3 : 
             if player_pieces == n - 1:
                 score += WEIGHTS["THREE_IN_LINE"] 
+                print("TWO_IN_LINE : 200")
+                potential_fork_lines += 1
+        elif n > 3: 
+            if player_pieces == n - 1:
+                score += WEIGHTS["THREE_IN_LINE"] 
+                print("THREE_IN_LINE : 200")
                 potential_fork_lines += 1
             elif player_pieces == n - 2:
                 score += WEIGHTS["TWO_IN_LINE"]
+                print("TWO_IN_LINE : 50")
                 potential_fork_lines += 1
     
     return score, potential_fork_lines
-
 
 def _score_forks(potential_fork_lines: int, WEIGHTS: Dict) -> int:
     """Scores a fork opportunity (2 or more simultaneous threats)."""
