@@ -1,103 +1,122 @@
-AI Agent for XOShift
-This repository contains an intelligent AI agent for XOShift, a complex variant of Tic-Tac-Toe, developed as the final project for the "Artificial Intelligence and Expert Systems" course at Shahid Beheshti University.
+# 🤖 AI Agent for XOShift
 
-The agent uses the Minimax algorithm with Alpha-Beta Pruning and a sophisticated heuristic evaluation function to analyze the game state and make strategic decisions. The project includes the complete game environment, multiple agents for testing, and a headless evaluation script for performance analysis.
+This repository hosts an intelligent AI agent designed to play **XOShift**, a strategic and dynamic variant of Tic-Tac-Toe. Developed as the final project for the *Artificial Intelligence and Expert Systems* course at **Shahid Beheshti University**, this project combines game theory, adversarial search, and heuristic design into a complete, playable system.
 
-🎮 About the Game: XOShift
-XOShift is played on a 3x3, 4x4, or 5x5 grid. While the goal is to get N-in-a-row like Tic-Tac-Toe, the piece placement is unique and strategic, involving a "shift" mechanic.
+---
 
-How to Play
-A move consists of two steps:
+## 🎮 About the Game: XOShift
 
-Select the First Cell (Source):
+**XOShift** is played on a 3x3, 4x4, or 5x5 grid. While the objective remains to get `N-in-a-row` like in classic Tic-Tac-Toe, XOShift introduces a *shift mechanic* that adds strategic depth:
 
-If any empty cells exist on the outer perimeter of the board, you must select one of them.
+### 🔁 Move Rules:
 
-If the perimeter is full, you must select one of your own pieces on the perimeter.
+Each move has **two steps**:
 
-Select the Second Cell (Target):
+1. **Select the Source Cell:**
 
-You must select a cell at the beginning or end of the row or column of your source cell.
+   * If empty cells exist on the outer perimeter, you *must* select one of them.
+   * If the perimeter is full, you must select *one of your own pieces* on the perimeter.
 
-The source and target cells cannot be the same.
+2. **Select the Target Cell:**
 
-Perform the Shift:
+   * Must be at the **beginning or end** of the same row or column as the source.
+   * Source and target cells *cannot* be the same.
 
-The piece from the source cell moves to the target cell.
+3. **Perform the Shift:**
 
-All other pieces in that line slide over one space to fill the vacated spot.
+   * The piece in the source cell moves to the target cell.
+   * All pieces in that line shift by one space to fill the gap.
 
-🧠 The AI Agent
-The core of this project is the intelligent agent (your_agent.py) designed to play XOShift strategically.
+---
 
-Algorithm: Minimax with Alpha-Beta Pruning
-The agent's decision-making is powered by the Minimax algorithm, a classic adversarial search algorithm perfect for two-player, zero-sum games.
+## 🧠 The AI Agent
 
-Game Tree Search: It explores future possible moves to a certain depth.
+The heart of the project is the intelligent agent in `your_agent.py`, which plays strategically using:
 
-Maximizer vs. Minimizer: It assumes the agent will always try to maximize its score, while the opponent will always try to minimize it.
+### 🧮 Algorithm: Minimax with Alpha-Beta Pruning
 
-Alpha-Beta Pruning: To meet the 2-second time limit per move, the algorithm uses Alpha-Beta Pruning. This optimization safely prunes large portions of the game tree that cannot influence the final decision, allowing for a deeper and more efficient search.
+* **Game Tree Search:** Explores possible moves to a limited depth.
+* **Maximizing vs. Minimizing:** Agent maximizes its own score while assuming the opponent minimizes it.
+* **Alpha-Beta Pruning:** Efficiently cuts out unpromising branches of the game tree to stay within a 2-second per-move limit.
 
-Heuristic Evaluation Function
-When the search reaches its maximum depth, a heuristic function (heuristic.py) evaluates the board's strategic value. The final score is calculated as My Score - (Opponent's Score * Defense Multiplier), rewarding moves that improve our position while penalizing those that allow the opponent an advantage.
+### 📊 Heuristic Evaluation (`heuristic.py`)
 
-The heuristic considers several factors:
+When the search depth is reached, the heuristic function evaluates the board state based on:
 
-Winning/Losing States: Assigns a near-infinite score for guaranteed wins or losses.
+* **Winning or Losing States:** Near-infinite scores for guaranteed outcomes.
+* **N-in-a-Row Threats:** Rewards creating or blocking potential winning lines.
+* **Forks:** Rewards moves that create multiple threats.
+* **Positional Control:** Prioritizes central and corner positions.
 
-N-in-a-Row Threats: Scores potential winning lines (e.g., 2-in-a-row on a 3x3 board).
+Final score formula:
 
-Forks: Gives a very high score for creating two threats simultaneously.
+```
+My Score - (Opponent's Score × Defense Multiplier)
+```
 
-Positional Control: Assigns value to controlling strategically important corners and center squares.
+---
 
-🚀 How to Run
-Prerequisites
-Python 3.x
+## 🚀 How to Run
 
-PyGame
+### ✅ Prerequisites
 
-Installation
-Clone the repository:
+* Python 3.x
+* PyGame
 
+### 📦 Installation
+
+```bash
 git clone <your-repository-url>
-
-Navigate to the project directory:
-
 cd XOShift-AI-Agent
-
-Install the required library:
-
 pip install pygame
+```
 
-Running the Game with UI
-To play the game with the graphical interface, run main.py:
+---
 
+### 🎲 Running the Game (UI)
+
+To launch the graphical version of the game:
+
+```bash
 python main.py
+```
 
-From the main menu, you can select:
+From the menu, choose:
 
-Game Mode: Human vs. Agent, Agent vs. Agent, etc.
+* **Game Mode:** Human vs. Agent, Agent vs. Agent, etc.
+* **Board Size:** 3x3, 4x4, or 5x5
+* **Agent File:** Easily switch between `your_agent.py`, `sample_agent.py`, or others via `main.py`.
 
-Board Size: 3x3, 4x4, or 5x5.
+---
 
-Agent Configuration: The main.py file can be configured to load different agent files (your_agent.py, sample_agent.py, etc.).
+### 🧪 Headless Evaluation
 
-Running the Headless Evaluation
-To evaluate your agent's performance against another agent without a UI, use the evaluation script. This script runs a set number of games and reports the win/loss/draw statistics.
+To benchmark your agent without a UI:
 
+```bash
 python evaluate.py
+```
 
-You can configure the agents to compete and the number of games directly within the evaluate.py file.
+Configure the agents and number of rounds directly in `evaluate.py` to test performance, win/loss rates, and reliability.
 
-📂 Project Structure
+---
+
+## 📁 Project Structure
+
+```
 .
-├── your_agent.py       # Your primary intelligent agent with Minimax
-├── heuristic.py        # The heuristic evaluation function
-├── sample_agent.py     # A simple agent that plays randomly
-├── game.py             # Contains the core XOShiftGame class and rules
-├── main.py             # The main entry point for the UI game
-├── ui.py               # Handles all PyGame rendering and UI logic
-├── evaluate.py         # Headless script for performance testing
-└── agent_loader.py     # Utility to dynamically load agent files
+├── your_agent.py       # Main AI agent using Minimax + Alpha-Beta
+├── heuristic.py        # Heuristic function for board evaluation
+├── sample_agent.py     # Random-move agent for testing
+├── game.py             # Core XOShiftGame logic and rules
+├── main.py             # Entry point for graphical game
+├── ui.py               # PyGame-based UI rendering
+├── evaluate.py         # Script for agent benchmarking without UI
+└── agent_loader.py     # Utility to load agents dynamically
+```
+
+---
+
+## 🏁 License
+
+This project is developed for academic purposes. Contributions, feedback, and forks are welcome!
