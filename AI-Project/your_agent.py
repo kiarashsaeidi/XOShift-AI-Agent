@@ -1,7 +1,8 @@
 import math
 import copy
 from typing import List, Optional, Tuple
-# It is assumed that this utility is provided by the project environment.
+from heuristic import evaluate_board
+# from test_hu import evaluate_board
 from agent_utils import get_all_valid_moves
 
 
@@ -74,18 +75,18 @@ def minimax(board: List[List[Optional[str]]], depth: int,alpha: float, beta: flo
     The core Minimax function. It recursively explores the game tree to find the
     best possible score from the current board state.
     """
-    WIN_SCORE = 100
+    WIN_SCORE = 100000
     # Check for terminal states (win, loss, draw)
-    if check_win(board, player_symbol):
-        return WIN_SCORE  # AI wins
     if check_win(board, opponent_symbol):
         return -WIN_SCORE # Opponent wins
+    if check_win(board, player_symbol):
+        return WIN_SCORE  # AI wins
     if is_board_full(board):
         return 0  # Draw
     
     # If we reach the maximum search depth, we stop and return a neutral score
     if depth == 0:
-        return 0
+        return evaluate_board(board,player_symbol,opponent_symbol)
 
     if is_maximizing:
         best_score = -math.inf
@@ -117,7 +118,7 @@ def minimax(board: List[List[Optional[str]]], depth: int,alpha: float, beta: flo
 
 
 # --- Main Agent Function ---
-
+# from eval3 import print_board
 def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[int, int, int, int]:
     """
     This is the main function that the game calls to get the agent's move.
@@ -145,7 +146,15 @@ def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[in
         new_board = apply_move(board, move, player_symbol)
         
         # We call minimax for the opponent's turn (minimizing player)
+        # if move ==(2, 2, 2, 0) : print("I am here")
         score = minimax(new_board, search_depth,-math.inf,math.inf,False, player_symbol, opponent_symbol)
+        
+        # print(f'the move is {move}  and score : {score} and the board is : ')
+        
+        # print_board(new_board)
+
+        
+       
         
         # If this move has a better score than any we've seen, update our best move
         if score > best_score:
@@ -154,5 +163,12 @@ def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[in
 
     if chosen_move is None:
         chosen_move = valid_moves[0]
+
+
+    new_board = apply_move(board, chosen_move, player_symbol)
         
+        # We call minimax for the opponent's turn (minimizing player)
+    score = minimax(new_board, search_depth,-math.inf,math.inf,False, player_symbol, opponent_symbol)
+    # print(f'the score of chosen move is : {score}')  
+    
     return chosen_move
