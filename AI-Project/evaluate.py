@@ -7,7 +7,6 @@ try:
     from game import XOShiftGame
     import sample_agent 
     import your_agent
-    import agent2
 except ImportError as e:
     print("--- ERROR ---")
     print("Could not import necessary files. Make sure this script is in the same directory as:")
@@ -77,26 +76,28 @@ def evaluate_agent(my_agent_func, opponent_func, games: int = 100, board_size: i
     """
     total_points = 0.0
     for i in range(games):
-        # if random.randint(0, 1) == 0:
+        if random.randint(0, 1) == 0:
             # Your agent plays as 'X'
-        # result = play_game(my_agent_func, opponent_func, board_size)
-        # total_points += result
-        # winner = 'my_agent' if result == 1.0 else ('opponent' if result == 0.0 else 'draw')
-        # else:
-            # Your agent plays as 'O'
-        result = play_game(opponent_func, my_agent_func, board_size)
-        total_points += 1.0 - result
-        winner = 'my_agent' if result == 0.0 else ('opponent' if result == 1.0 else 'draw')
+            result = play_game(my_agent_func, opponent_func, board_size)
+            total_points += result
+            winner = 'my_agent' if result == 1.0 else ('opponent' if result == 0.0 else 'draw')
+        else:
+        #     # Your agent plays as 'O'
+            result = play_game(opponent_func, my_agent_func, board_size)
+            total_points += 1.0 - result
+            winner = 'my_agent' if result == 0.0 else ('opponent' if result == 1.0 else 'draw')
         
         print(f"Game {i+1}/{games} complete. Result: {winner}")
 
     return 100.0 * total_points / games
 
-
+import testp_agent
+import testA_agent
 if __name__ == "__main__":
     my_agent = your_agent.agent_move
-    agent2 = agent2.agent_move
     random_agent = sample_agent.agent_move
+    testa=testA_agent.agent_move
+    testp = testp_agent.agent_move
 
-    win_pct = evaluate_agent(agent2, random_agent, games=30, board_size=3)
+    win_pct = evaluate_agent(my_agent, testa, games=30, board_size=3)
     print(f"\nYour agent scored {win_pct:.2f}% of the total possible points.")

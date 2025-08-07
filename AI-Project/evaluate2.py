@@ -107,10 +107,10 @@ def main():
     Main function to run the agent vs. agent evaluation.
     """
     # --- Configuration ---
-    AGENT1_PATH = "agent2.py"
-    AGENT2_PATH = "sample_agent.py"
+    AGENT1_PATH = "your_agent.py"
+    AGENT2_PATH = "testp_agent.py"
     NUM_GAMES = 20
-    BOARD_SIZE = 3
+    BOARD_SIZE = 4
 
     print("--- XOShift Agent Evaluation Script ---")
     print(f"Agent 1: {AGENT1_PATH}")
@@ -131,22 +131,22 @@ def main():
         print(f"Playing game {i + 1}/{NUM_GAMES}...", end='\r')
         
         # Alternate who starts as 'X'
-        # if i % 2 == 0:
-        # winner = play_one_game(agent1_func, agent2_func, BOARD_SIZE)
-        # if winner == 'X':
-        #     stats[AGENT1_PATH] += 1
-        # elif winner == 'O':
-        #     stats[AGENT2_PATH] += 1
-        # else:
-        #     stats["Draw"] += 1
-        # else:
-        winner = play_one_game(agent2_func, agent1_func, BOARD_SIZE)
-        if winner == 'X':
-            stats[AGENT2_PATH] += 1
-        elif winner == 'O':
-            stats[AGENT1_PATH] += 1
+        if i % 2 == 0:
+            winner = play_one_game(agent1_func, agent2_func, BOARD_SIZE)
+            if winner == 'X':
+                stats[AGENT1_PATH] += 1
+            elif winner == 'O':
+                stats[AGENT2_PATH] += 1
+            else:
+                stats["Draw"] += 1
         else:
-            stats["Draw"] += 1
+            winner = play_one_game(agent2_func, agent1_func, BOARD_SIZE)
+            if winner == 'X':
+                stats[AGENT2_PATH] += 1
+            elif winner == 'O':
+                stats[AGENT1_PATH] += 1
+            else:
+                stats["Draw"] += 1
 
     end_time = time.time()
     total_time = end_time - start_time
