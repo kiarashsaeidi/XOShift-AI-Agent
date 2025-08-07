@@ -1,71 +1,103 @@
-XOShift AI Agent
-This repository contains an intelligent agent for the game XOShift, a challenging variant of Tic-Tac-Toe. The agent uses the Minimax algorithm to analyze the game state and select the optimal move.
+AI Agent for XOShift
+This repository contains an intelligent AI agent for XOShift, a complex variant of Tic-Tac-Toe, developed as the final project for the "Artificial Intelligence and Expert Systems" course at Shahid Beheshti University.
 
-This project was developed for the "Artificial Intelligence and Expert Systems" course at Shahid Beheshti University.
+The agent uses the Minimax algorithm with Alpha-Beta Pruning and a sophisticated heuristic evaluation function to analyze the game state and make strategic decisions. The project includes the complete game environment, multiple agents for testing, and a headless evaluation script for performance analysis.
 
-About the Game: XOShift
-XOShift expands on classic Tic-Tac-Toe with a unique "shift" mechanic for placing pieces. The objective remains the same: be the first to form a complete row, column, or diagonal with your pieces.
+🎮 About the Game: XOShift
+XOShift is played on a 3x3, 4x4, or 5x5 grid. While the goal is to get N-in-a-row like Tic-Tac-Toe, the piece placement is unique and strategic, involving a "shift" mechanic.
 
-Key Rules:
-Board Size: The game can be played on a 3x3, 4x4, or 5x5 grid.
+How to Play
+A move consists of two steps:
 
-Making a Move: A move consists of two selections:
+Select the First Cell (Source):
 
-First Cell: You must select an empty cell on the perimeter of the board. If the perimeter is full, you must select one of your own pieces on the perimeter.
+If any empty cells exist on the outer perimeter of the board, you must select one of them.
 
-Second Cell: You must select a cell at the beginning or end of the row/column of your first selected cell.
+If the perimeter is full, you must select one of your own pieces on the perimeter.
 
-The Shift: The piece from the first cell moves to the second cell's position, and all other pieces in that line shift over to fill the vacated spot.
+Select the Second Cell (Target):
 
-The AI Agent
-The agent is implemented in Python and decides its moves by thinking ahead and anticipating the opponent's actions.
+You must select a cell at the beginning or end of the row or column of your source cell.
 
-Core Algorithm: Minimax
-The agent's logic is built on the Minimax algorithm, a classic decision-making algorithm for two-player games. It works by:
+The source and target cells cannot be the same.
 
-Building a tree of possible future moves.
+Perform the Shift:
 
-Assuming the agent (the "Maximizer") will always choose the move with the best possible outcome.
+The piece from the source cell moves to the target cell.
 
-Assuming the opponent (the "Minimizer") will always choose the move that is worst for the agent.
+All other pieces in that line slide over one space to fill the vacated spot.
 
-Evaluating the board states at a certain depth and propagating the scores back up the tree to find the optimal move at the current state.
+🧠 The AI Agent
+The core of this project is the intelligent agent (your_agent.py) designed to play XOShift strategically.
 
-Evaluation Function
-For this implementation, a simple evaluation function is used to score the outcome of a game tree branch:
+Algorithm: Minimax with Alpha-Beta Pruning
+The agent's decision-making is powered by the Minimax algorithm, a classic adversarial search algorithm perfect for two-player, zero-sum games.
 
-+1: If the move leads to a win for the AI.
+Game Tree Search: It explores future possible moves to a certain depth.
 
--1: If the move leads to a loss for the AI.
+Maximizer vs. Minimizer: It assumes the agent will always try to maximize its score, while the opponent will always try to minimize it.
 
-0: For a draw or an inconclusive game state at the maximum search depth.
+Alpha-Beta Pruning: To meet the 2-second time limit per move, the algorithm uses Alpha-Beta Pruning. This optimization safely prunes large portions of the game tree that cannot influence the final decision, allowing for a deeper and more efficient search.
 
-Potential Enhancements
-Alpha-Beta Pruning: A crucial optimization to the Minimax algorithm that would significantly speed up the search by pruning branches of the game tree that don't need to be evaluated.
+Heuristic Evaluation Function
+When the search reaches its maximum depth, a heuristic function (heuristic.py) evaluates the board's strategic value. The final score is calculated as My Score - (Opponent's Score * Defense Multiplier), rewarding moves that improve our position while penalizing those that allow the opponent an advantage.
 
-Heuristic Evaluation: Implementing a more advanced heuristic function to score intermediate board states would make the AI much stronger. This function could evaluate factors like the number of potential winning lines, center control, and blocking opponent's threats.
+The heuristic considers several factors:
 
-How to Run the Project
-The game environment is built using PyGame.
+Winning/Losing States: Assigns a near-infinite score for guaranteed wins or losses.
 
-1. Prerequisites
-   Python 3
+N-in-a-Row Threats: Scores potential winning lines (e.g., 2-in-a-row on a 3x3 board).
 
-2. Installation
-   Install the necessary package using pip:
+Forks: Gives a very high score for creating two threats simultaneously.
+
+Positional Control: Assigns value to controlling strategically important corners and center squares.
+
+🚀 How to Run
+Prerequisites
+Python 3.x
+
+PyGame
+
+Installation
+Clone the repository:
+
+git clone <your-repository-url>
+
+Navigate to the project directory:
+
+cd XOShift-AI-Agent
+
+Install the required library:
 
 pip install pygame
 
-3. Configuration
-   Place your agent file (e.g., your_student_id.py) in the project directory.
-
-Open the main.py file.
-
-Set the agent1_path_config or agent2_path_config variable to the name of your agent file so the game can load it.
-
-4. Execution
-   Run the main script from your terminal to start the game:
+Running the Game with UI
+To play the game with the graphical interface, run main.py:
 
 python main.py
 
-You can then select the game mode (e.g., Human vs Agent) and board size from the main menu.
+From the main menu, you can select:
+
+Game Mode: Human vs. Agent, Agent vs. Agent, etc.
+
+Board Size: 3x3, 4x4, or 5x5.
+
+Agent Configuration: The main.py file can be configured to load different agent files (your_agent.py, sample_agent.py, etc.).
+
+Running the Headless Evaluation
+To evaluate your agent's performance against another agent without a UI, use the evaluation script. This script runs a set number of games and reports the win/loss/draw statistics.
+
+python evaluate.py
+
+You can configure the agents to compete and the number of games directly within the evaluate.py file.
+
+📂 Project Structure
+.
+├── your_agent.py       # Your primary intelligent agent with Minimax
+├── heuristic.py        # The heuristic evaluation function
+├── sample_agent.py     # A simple agent that plays randomly
+├── game.py             # Contains the core XOShiftGame class and rules
+├── main.py             # The main entry point for the UI game
+├── ui.py               # Handles all PyGame rendering and UI logic
+├── evaluate.py         # Headless script for performance testing
+└── agent_loader.py     # Utility to dynamically load agent files
