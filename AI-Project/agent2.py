@@ -118,7 +118,7 @@ def minimax(board: List[List[Optional[str]]], depth: int,alpha: float, beta: flo
 
 
 # --- Main Agent Function ---
-from eval3 import print_board
+# from eval3 import print_board
 def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[int, int, int, int]:
     """
     This is the main function that the game calls to get the agent's move.
@@ -138,7 +138,7 @@ def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[in
     
     # Set a depth for the search. Higher depth = stronger but slower AI.
     # A depth of 2 or 3 is a good starting point for a 3x3 board.
-    search_depth = 8
+    search_depth = 2
 
     # Loop through all possible moves
     for move in valid_moves:
@@ -169,6 +169,6 @@ def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[in
         
         # We call minimax for the opponent's turn (minimizing player)
     score = minimax(new_board, search_depth,-math.inf,math.inf,False, player_symbol, opponent_symbol)
-    print(f'the score of chosen move is : {score}')  
+    # print(f'the score of chosen move is : {score}')  
     
     return chosen_move
