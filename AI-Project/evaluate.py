@@ -76,7 +76,7 @@ def evaluate_agent(my_agent_func, opponent_func, games: int = 100, board_size: i
     """
     total_points = 0.0
     for i in range(games):
-        if random.randint(0, 1) == 0:
+        if i % 2 == 0:
             # Your agent plays as 'X'
             result = play_game(my_agent_func, opponent_func, board_size)
             total_points += result
@@ -99,5 +99,5 @@ if __name__ == "__main__":
     testa=testA_agent.agent_move
     testp = testp_agent.agent_move
 
-    win_pct = evaluate_agent(my_agent, testa, games=30, board_size=3)
+    win_pct = evaluate_agent(my_agent, testp, games=10, board_size=3)
     print(f"\nYour agent scored {win_pct:.2f}% of the total possible points.")
