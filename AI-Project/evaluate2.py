@@ -109,7 +109,7 @@ def main():
     # --- Configuration ---
     AGENT1_PATH = "your_agent.py"
     AGENT2_PATH = "testp_agent.py"
-    NUM_GAMES = 20
+    NUM_GAMES = 10
     BOARD_SIZE = 4
 
     print("--- XOShift Agent Evaluation Script ---")

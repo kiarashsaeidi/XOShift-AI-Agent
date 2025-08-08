@@ -184,7 +184,7 @@ def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[in
         search_depth = 2
 
     # Start the minimax search from the current state for the maximizing player (our agent).
-    chosen_move, score = minimax(board, 2, float('-inf'), float('inf'), True, player_symbol)
+    chosen_move, score = minimax(board, 4, float('-inf'), float('inf'), True, player_symbol)
 
     # Fallback in case minimax doesn't return a move (shouldn't happen if valid_moves is not empty).
     return chosen_move if chosen_move else valid_moves[0]

@@ -54,16 +54,13 @@ def _score_threats(all_lines: List[List[Optional[str]]], player_symbol: str, n: 
         if n == 3 : 
             if player_pieces == n - 1:
                 score += WEIGHTS["THREE_IN_LINE"] 
-                # print("TWO_IN_LINE : 200")
                 potential_fork_lines += 1
         elif n > 3: 
             if player_pieces == n - 1:
                 score += WEIGHTS["THREE_IN_LINE"] 
-                # print("THREE_IN_LINE : 200")
                 potential_fork_lines += 1
             elif player_pieces == n - 2:
                 score += WEIGHTS["TWO_IN_LINE"]
-                # print("TWO_IN_LINE : 50")
                 potential_fork_lines += 1
     
     return score, potential_fork_lines
