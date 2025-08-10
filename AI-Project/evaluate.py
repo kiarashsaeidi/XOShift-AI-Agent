@@ -6,7 +6,7 @@ try:
     # This will now use the XOShiftGame class you provided
     from game import XOShiftGame
     import sample_agent 
-    import your_agent
+    # import your_agent
 except ImportError as e:
     print("--- ERROR ---")
     print("Could not import necessary files. Make sure this script is in the same directory as:")
@@ -93,11 +93,14 @@ def evaluate_agent(my_agent_func, opponent_func, games: int = 100, board_size: i
 
 import testp_agent
 import testA_agent
+import testAr_agent
+import f402243071
 if __name__ == "__main__":
-    my_agent = your_agent.agent_move
+    my_agent = f402243071.agent_move
     random_agent = sample_agent.agent_move
     testa=testA_agent.agent_move
     testp = testp_agent.agent_move
+    testAr = testAr_agent.agent_move
 
-    win_pct = evaluate_agent(my_agent, testp, games=10, board_size=3)
+    win_pct = evaluate_agent(my_agent, random_agent, games=10, board_size=4)
     print(f"\nYour agent scored {win_pct:.2f}% of the total possible points.")

@@ -2,7 +2,6 @@ import math
 import copy
 import time
 from typing import List, Optional, Tuple
-from heuristic import evaluate_board
 from agent_utils import get_all_valid_moves
 
 class SearchTimeout(Exception):
@@ -88,7 +87,7 @@ def minimax(board: List[List[Optional[str]]], depth: int, alpha: float, beta: fl
 
 def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[int, int, int, int]:
     start_time = time.time()
-    time_limit = 1.9  # Leave 0.1 seconds buffer
+    time_limit = 1.9  
     
     valid_moves = get_all_valid_moves(board, player_symbol)
     opponent_symbol = 'O' if player_symbol == 'X' else 'X'
@@ -149,7 +148,6 @@ def agent_move(board: List[List[Optional[str]]], player_symbol: str) -> Tuple[in
 # heuristic codes ...
 
 from typing import List, Optional, Tuple, Dict
-import collections
 
 
 def evaluate_board(board: List[List[Optional[str]]], my_symbol: str, opponent_symbol: str) -> int:
@@ -192,7 +190,6 @@ def score_player_position(board: List[List[Optional[str]]], player_symbol: str, 
 
 
 def _score_threats(all_lines: List[List[Optional[str]]], player_symbol: str, n: int, WEIGHTS: Dict) -> Tuple[int, int]:
-    """Scores threats like two-in-a-row or three-in-a-row."""
     score = 0
     potential_fork_lines = 0
     
@@ -200,7 +197,7 @@ def _score_threats(all_lines: List[List[Optional[str]]], player_symbol: str, n: 
         player_pieces = line.count(player_symbol)
         empty_cells = line.count(None)
 
-        # if player_pieces + empty_cells == n:  # Line is not blocked by the opponent
+        
         if n == 3 : 
             if player_pieces == n - 1:
                 score += WEIGHTS["THREE_IN_LINE"] 
